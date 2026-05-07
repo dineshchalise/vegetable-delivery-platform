@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "autoprefixer": "latest",
+    "laravel-vite-plugin": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest",
+    "vite": "latest"
+  },
+  "dependencies": {
+    "alpinejs": "latest",
+    "chart.js": "latest"
+  }
+}

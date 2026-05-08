@@ -23,6 +23,10 @@
             </nav>
         </aside>
         <main class="flex-1 p-6">{{ $slot }}</main>
+        <form method="POST" action="{{ route('admin.logout') }}" class="fixed right-4 top-4">
+            @csrf
+            <button class="rounded bg-white px-3 py-2 text-sm shadow">Logout</button>
+        </form>
     </div>
     @livewireScripts
 </body>

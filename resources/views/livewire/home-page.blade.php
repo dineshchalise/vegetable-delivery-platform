@@ -15,7 +15,14 @@
                 <div class="aspect-square rounded bg-slate-100"></div>
                 <h2 class="mt-3 font-medium">{{ $product->name }}</h2>
                 <p class="text-sm text-slate-600">Rs {{ $product->price }} / {{ $product->unit }}</p>
-                <button type="button" class="mt-3 w-full rounded bg-emerald-600 px-3 py-2 text-white" @click="cart.push({ id: {{ $product->id }}, name: '{{ addslashes($product->name) }}', price: '{{ $product->price }}', quantity: 1 })">Add to Bag</button>
+                <button type="button" class="mt-3 w-full rounded bg-emerald-600 px-3 py-2 text-white" @click="
+                    const existing = cart.find((item) => item.id === {{ $product->id }});
+                    if (existing) {
+                        existing.quantity = Number(existing.quantity || 1) + 1;
+                    } else {
+                        cart.push({ id: {{ $product->id }}, name: '{{ addslashes($product->name) }}', price: '{{ $product->price }}', quantity: 1 });
+                    }
+                ">Add to Bag</button>
             </article>
         @endforeach
     </div>

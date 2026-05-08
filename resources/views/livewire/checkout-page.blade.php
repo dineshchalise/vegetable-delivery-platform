@@ -15,6 +15,11 @@
                     <button wire:click="next" class="rounded bg-emerald-600 px-4 py-3 text-white">Continue</button>
                 </div>
             @elseif($step === 2)
+                @if($hubs->isEmpty())
+                    <div class="rounded bg-amber-50 p-4 text-amber-800">
+                        No active hubs are available. Please add or activate a hub from the admin panel.
+                    </div>
+                @endif
                 <div class="grid gap-4 sm:grid-cols-2">
                     @foreach($hubs as $hub)
                         <button wire:click="$set('hub_id', {{ $hub->id }})" class="rounded border p-4 text-left {{ $hub_id === $hub->id ? 'border-emerald-600' : '' }}">
@@ -31,6 +36,11 @@
                 <button wire:click="next" class="mt-4 rounded bg-emerald-600 px-4 py-3 text-white">Continue</button>
             @else
                 <p class="mb-4">Review your order and place it.</p>
+                @if(empty($items))
+                    <div class="mb-4 rounded bg-amber-50 p-4 text-amber-800">
+                        Your cart is empty. Please return to the homepage and add products.
+                    </div>
+                @endif
                 <button type="button" @click="$wire.set('items', cart.map((item) => ({ product_id: item.id, quantity: item.quantity || 1 }))).then(() => $wire.placeOrder())" class="rounded bg-emerald-600 px-4 py-3 text-white">Place Order</button>
             @endif
         </div>

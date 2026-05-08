@@ -18,7 +18,12 @@ class CheckoutPage extends Component
 
     public function next(): void
     {
-        $this->validate($this->rulesForStep());
+        $rules = $this->rulesForStep();
+
+        if ($rules !== []) {
+            $this->validate($rules);
+        }
+
         $this->step = $this->step === 1 ? 3 : $this->step + 1;
     }
 

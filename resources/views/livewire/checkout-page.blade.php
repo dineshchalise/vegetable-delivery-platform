@@ -12,6 +12,17 @@
                     <input wire:model="name" class="rounded border p-3" placeholder="Name">
                     <input wire:model="mobile" class="rounded border p-3" placeholder="Mobile">
                     <textarea wire:model="address" class="rounded border p-3" placeholder="Address"></textarea>
+                    <select wire:model="hub_id" class="rounded border p-3">
+                        <option value="">Choose pickup hub</option>
+                        @foreach($hubs as $hub)
+                            <option value="{{ $hub->id }}">{{ $hub->name }} - {{ $hub->pickup_timings }}</option>
+                        @endforeach
+                    </select>
+                    @if($hubs->isEmpty())
+                        <div class="rounded bg-amber-50 p-4 text-amber-800">
+                            No active hubs are available. Please add or activate a hub from the admin panel.
+                        </div>
+                    @endif
                     <button wire:click="next" class="rounded bg-emerald-600 px-4 py-3 text-white">Continue</button>
                 </div>
             @elseif($step === 2)

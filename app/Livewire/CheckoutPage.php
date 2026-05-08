@@ -19,7 +19,7 @@ class CheckoutPage extends Component
     public function next(): void
     {
         $this->validate($this->rulesForStep());
-        $this->step++;
+        $this->step = $this->step === 1 ? 3 : $this->step + 1;
     }
 
     public function placeOrder(OrderService $orders): void
@@ -54,7 +54,12 @@ class CheckoutPage extends Component
     private function rulesForStep(): array
     {
         return match ($this->step) {
-            1 => ['name' => ['required'], 'mobile' => ['required', 'digits:10'], 'address' => ['required']],
+            1 => [
+                'name' => ['required'],
+                'mobile' => ['required', 'digits:10'],
+                'address' => ['required'],
+                'hub_id' => ['required', 'exists:hubs,id'],
+            ],
             2 => ['hub_id' => ['required', 'exists:hubs,id']],
             default => [],
         };
